@@ -23,8 +23,7 @@ class HomeserverInformation {
     required this.baseUrl,
   });
 
-  HomeserverInformation.fromJson(Map<String, Object?> json)
-      : baseUrl = Uri.parse(json['base_url'] as String);
+  HomeserverInformation.fromJson(Map<String, Object?> json) : baseUrl = Uri.parse(json['base_url'] as String);
   Map<String, Object?> toJson() => {
         'base_url': baseUrl.toString(),
       };
@@ -40,8 +39,7 @@ class IdentityServerInformation {
     required this.baseUrl,
   });
 
-  IdentityServerInformation.fromJson(Map<String, Object?> json)
-      : baseUrl = Uri.parse(json['base_url'] as String);
+  IdentityServerInformation.fromJson(Map<String, Object?> json) : baseUrl = Uri.parse(json['base_url'] as String);
   Map<String, Object?> toJson() => {
         'base_url': baseUrl.toString(),
       };
@@ -61,22 +59,18 @@ class DiscoveryInformation {
   });
 
   DiscoveryInformation.fromJson(Map<String, Object?> json)
-      : mHomeserver = HomeserverInformation.fromJson(
-            json['m.homeserver'] as Map<String, Object?>),
-        mIdentityServer = ((v) => v != null
-            ? IdentityServerInformation.fromJson(v as Map<String, Object?>)
-            : null)(json['m.identity_server']),
+      : mHomeserver = HomeserverInformation.fromJson(json['m.homeserver'] as Map<String, Object?>),
+        mIdentityServer = ((v) => v != null ? IdentityServerInformation.fromJson(v as Map<String, Object?>) : null)(
+            json['m.identity_server']),
         additionalProperties = Map.fromEntries(json.entries
-            .where(
-                (e) => !['m.homeserver', 'm.identity_server'].contains(e.key))
+            .where((e) => !['m.homeserver', 'm.identity_server'].contains(e.key))
             .map((e) => MapEntry(e.key, e.value as Map<String, Object?>)));
   Map<String, Object?> toJson() {
     final mIdentityServer = this.mIdentityServer;
     return {
       ...additionalProperties,
       'm.homeserver': mHomeserver.toJson(),
-      if (mIdentityServer != null)
-        'm.identity_server': mIdentityServer.toJson(),
+      if (mIdentityServer != null) 'm.identity_server': mIdentityServer.toJson(),
     };
   }
 
@@ -106,10 +100,8 @@ class PublicRoomsChunk {
   });
 
   PublicRoomsChunk.fromJson(Map<String, Object?> json)
-      : avatarUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
-        canonicalAlias =
-            ((v) => v != null ? v as String : null)(json['canonical_alias']),
+      : avatarUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
+        canonicalAlias = ((v) => v != null ? v as String : null)(json['canonical_alias']),
         guestCanJoin = json['guest_can_join'] as bool,
         joinRule = ((v) => v != null ? v as String : null)(json['join_rule']),
         name = ((v) => v != null ? v as String : null)(json['name']),
@@ -182,9 +174,8 @@ class ChildRoomsChunk {
   });
 
   ChildRoomsChunk.fromJson(Map<String, Object?> json)
-      : childrenState = (json['children_state'] as List)
-            .map((v) => ChildrenState.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : childrenState =
+            (json['children_state'] as List).map((v) => ChildrenState.fromJson(v as Map<String, Object?>)).toList(),
         roomType = ((v) => v != null ? v as String : null)(json['room_type']);
   Map<String, Object?> toJson() {
     final roomType = this.roomType;
@@ -222,10 +213,8 @@ class SpaceRoomsChunk implements PublicRoomsChunk, ChildRoomsChunk {
   });
 
   SpaceRoomsChunk.fromJson(Map<String, Object?> json)
-      : avatarUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
-        canonicalAlias =
-            ((v) => v != null ? v as String : null)(json['canonical_alias']),
+      : avatarUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
+        canonicalAlias = ((v) => v != null ? v as String : null)(json['canonical_alias']),
         guestCanJoin = json['guest_can_join'] as bool,
         joinRule = ((v) => v != null ? v as String : null)(json['join_rule']),
         name = ((v) => v != null ? v as String : null)(json['name']),
@@ -234,9 +223,8 @@ class SpaceRoomsChunk implements PublicRoomsChunk, ChildRoomsChunk {
         roomType = ((v) => v != null ? v as String : null)(json['room_type']),
         topic = ((v) => v != null ? v as String : null)(json['topic']),
         worldReadable = json['world_readable'] as bool,
-        childrenState = (json['children_state'] as List)
-            .map((v) => ChildrenState.fromJson(v as Map<String, Object?>))
-            .toList();
+        childrenState =
+            (json['children_state'] as List).map((v) => ChildrenState.fromJson(v as Map<String, Object?>)).toList();
   Map<String, Object?> toJson() {
     final avatarUrl = this.avatarUrl;
     final canonicalAlias = this.canonicalAlias;
@@ -309,9 +297,7 @@ class GetSpaceHierarchyResponse {
 
   GetSpaceHierarchyResponse.fromJson(Map<String, Object?> json)
       : nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
-        rooms = (json['rooms'] as List)
-            .map((v) => SpaceRoomsChunk.fromJson(v as Map<String, Object?>))
-            .toList();
+        rooms = (json['rooms'] as List).map((v) => SpaceRoomsChunk.fromJson(v as Map<String, Object?>)).toList();
   Map<String, Object?> toJson() {
     final nextBatch = this.nextBatch;
     return {
@@ -348,9 +334,7 @@ class GetRelatingEventsResponse {
   });
 
   GetRelatingEventsResponse.fromJson(Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : chunk = (json['chunk'] as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList(),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         prevBatch = ((v) => v != null ? v as String : null)(json['prev_batch']);
   Map<String, Object?> toJson() {
@@ -385,9 +369,7 @@ class GetRelatingEventsWithRelTypeResponse {
   });
 
   GetRelatingEventsWithRelTypeResponse.fromJson(Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : chunk = (json['chunk'] as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList(),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         prevBatch = ((v) => v != null ? v as String : null)(json['prev_batch']);
   Map<String, Object?> toJson() {
@@ -423,11 +405,8 @@ class GetRelatingEventsWithRelTypeAndEventTypeResponse {
     this.prevBatch,
   });
 
-  GetRelatingEventsWithRelTypeAndEventTypeResponse.fromJson(
-      Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-            .toList(),
+  GetRelatingEventsWithRelTypeAndEventTypeResponse.fromJson(Map<String, Object?> json)
+      : chunk = (json['chunk'] as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList(),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         prevBatch = ((v) => v != null ? v as String : null)(json['prev_batch']);
   Map<String, Object?> toJson() {
@@ -473,9 +452,7 @@ class GetThreadRootsResponse {
   });
 
   GetThreadRootsResponse.fromJson(Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : chunk = (json['chunk'] as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList(),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']);
   Map<String, Object?> toJson() {
     final nextBatch = this.nextBatch;
@@ -547,8 +524,7 @@ class ThirdPartyIdentifier {
   ThirdPartyIdentifier.fromJson(Map<String, Object?> json)
       : addedAt = json['added_at'] as int,
         address = json['address'] as String,
-        medium = ThirdPartyIdentifierMedium.values
-            .fromString(json['medium'] as String)!,
+        medium = ThirdPartyIdentifierMedium.values.fromString(json['medium'] as String)!,
         validatedAt = json['validated_at'] as int;
   Map<String, Object?> toJson() => {
         'added_at': addedAt,
@@ -628,8 +604,7 @@ class RequestTokenResponse {
 
   RequestTokenResponse.fromJson(Map<String, Object?> json)
       : sid = json['sid'] as String,
-        submitUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['submit_url']);
+        submitUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['submit_url']);
   Map<String, Object?> toJson() {
     final submitUrl = this.submitUrl;
     return {
@@ -737,15 +712,12 @@ class SessionInfo {
 
   SessionInfo.fromJson(Map<String, Object?> json)
       : connections = ((v) => v != null
-            ? (v as List)
-                .map((v) => ConnectionInfo.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => ConnectionInfo.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['connections']);
   Map<String, Object?> toJson() {
     final connections = this.connections;
     return {
-      if (connections != null)
-        'connections': connections.map((v) => v.toJson()).toList(),
+      if (connections != null) 'connections': connections.map((v) => v.toJson()).toList(),
     };
   }
 
@@ -762,15 +734,12 @@ class DeviceInfo {
 
   DeviceInfo.fromJson(Map<String, Object?> json)
       : sessions = ((v) => v != null
-            ? (v as List)
-                .map((v) => SessionInfo.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => SessionInfo.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['sessions']);
   Map<String, Object?> toJson() {
     final sessions = this.sessions;
     return {
-      if (sessions != null)
-        'sessions': sessions.map((v) => v.toJson()).toList(),
+      if (sessions != null) 'sessions': sessions.map((v) => v.toJson()).toList(),
     };
   }
 
@@ -788,16 +757,14 @@ class WhoIsInfo {
 
   WhoIsInfo.fromJson(Map<String, Object?> json)
       : devices = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) =>
-                MapEntry(k, DeviceInfo.fromJson(v as Map<String, Object?>)))
+            ? (v as Map<String, Object?>).map((k, v) => MapEntry(k, DeviceInfo.fromJson(v as Map<String, Object?>)))
             : null)(json['devices']),
         userId = ((v) => v != null ? v as String : null)(json['user_id']);
   Map<String, Object?> toJson() {
     final devices = this.devices;
     final userId = this.userId;
     return {
-      if (devices != null)
-        'devices': devices.map((k, v) => MapEntry(k, v.toJson())),
+      if (devices != null) 'devices': devices.map((k, v) => MapEntry(k, v.toJson())),
       if (userId != null) 'user_id': userId,
     };
   }
@@ -816,8 +783,7 @@ class ChangePasswordCapability {
     required this.enabled,
   });
 
-  ChangePasswordCapability.fromJson(Map<String, Object?> json)
-      : enabled = json['enabled'] as bool;
+  ChangePasswordCapability.fromJson(Map<String, Object?> json) : enabled = json['enabled'] as bool;
   Map<String, Object?> toJson() => {
         'enabled': enabled,
       };
@@ -845,8 +811,8 @@ class RoomVersionsCapability {
   });
 
   RoomVersionsCapability.fromJson(Map<String, Object?> json)
-      : available = (json['available'] as Map<String, Object?>).map((k, v) =>
-            MapEntry(k, RoomVersionAvailable.values.fromString(v as String)!)),
+      : available = (json['available'] as Map<String, Object?>)
+            .map((k, v) => MapEntry(k, RoomVersionAvailable.values.fromString(v as String)!)),
         default$ = json['default'] as String;
   Map<String, Object?> toJson() => {
         'available': available.map((k, v) => MapEntry(k, v.name)),
@@ -870,23 +836,19 @@ class Capabilities {
   });
 
   Capabilities.fromJson(Map<String, Object?> json)
-      : mChangePassword = ((v) => v != null
-            ? ChangePasswordCapability.fromJson(v as Map<String, Object?>)
-            : null)(json['m.change_password']),
-        mRoomVersions = ((v) => v != null
-            ? RoomVersionsCapability.fromJson(v as Map<String, Object?>)
-            : null)(json['m.room_versions']),
+      : mChangePassword = ((v) =>
+            v != null ? ChangePasswordCapability.fromJson(v as Map<String, Object?>) : null)(json['m.change_password']),
+        mRoomVersions = ((v) =>
+            v != null ? RoomVersionsCapability.fromJson(v as Map<String, Object?>) : null)(json['m.room_versions']),
         additionalProperties = Map.fromEntries(json.entries
-            .where((e) =>
-                !['m.change_password', 'm.room_versions'].contains(e.key))
+            .where((e) => !['m.change_password', 'm.room_versions'].contains(e.key))
             .map((e) => MapEntry(e.key, e.value as Map<String, Object?>)));
   Map<String, Object?> toJson() {
     final mChangePassword = this.mChangePassword;
     final mRoomVersions = this.mRoomVersions;
     return {
       ...additionalProperties,
-      if (mChangePassword != null)
-        'm.change_password': mChangePassword.toJson(),
+      if (mChangePassword != null) 'm.change_password': mChangePassword.toJson(),
       if (mRoomVersions != null) 'm.room_versions': mRoomVersions.toJson(),
     };
   }
@@ -1004,10 +966,8 @@ class Device {
 
   Device.fromJson(Map<String, Object?> json)
       : deviceId = json['device_id'] as String,
-        displayName =
-            ((v) => v != null ? v as String : null)(json['display_name']),
-        lastSeenIp =
-            ((v) => v != null ? v as String : null)(json['last_seen_ip']),
+        displayName = ((v) => v != null ? v as String : null)(json['display_name']),
+        lastSeenIp = ((v) => v != null ? v as String : null)(json['last_seen_ip']),
         lastSeenTs = ((v) => v != null ? v as int : null)(json['last_seen_ts']);
   Map<String, Object?> toJson() {
     final displayName = this.displayName;
@@ -1048,9 +1008,7 @@ class GetRoomIdByAliasResponse {
 
   GetRoomIdByAliasResponse.fromJson(Map<String, Object?> json)
       : roomId = ((v) => v != null ? v as String : null)(json['room_id']),
-        servers = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['servers']);
+        servers = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['servers']);
   Map<String, Object?> toJson() {
     final roomId = this.roomId;
     final servers = this.servers;
@@ -1078,9 +1036,7 @@ class GetEventsResponse {
 
   GetEventsResponse.fromJson(Map<String, Object?> json)
       : chunk = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['chunk']),
         end = ((v) => v != null ? v as String : null)(json['end']),
         start = ((v) => v != null ? v as String : null)(json['start']);
@@ -1118,9 +1074,7 @@ class PeekEventsResponse {
 
   PeekEventsResponse.fromJson(Map<String, Object?> json)
       : chunk = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['chunk']),
         end = ((v) => v != null ? v as String : null)(json['end']),
         start = ((v) => v != null ? v as String : null)(json['start']);
@@ -1161,17 +1115,13 @@ class ThirdPartySigned {
   ThirdPartySigned.fromJson(Map<String, Object?> json)
       : mxid = json['mxid'] as String,
         sender = json['sender'] as String,
-        signatures = (json['signatures'] as Map<String, Object?>).map((k, v) =>
-            MapEntry(
-                k,
-                (v as Map<String, Object?>)
-                    .map((k, v) => MapEntry(k, v as String)))),
+        signatures = (json['signatures'] as Map<String, Object?>)
+            .map((k, v) => MapEntry(k, (v as Map<String, Object?>).map((k, v) => MapEntry(k, v as String)))),
         token = json['token'] as String;
   Map<String, Object?> toJson() => {
         'mxid': mxid,
         'sender': sender,
-        'signatures': signatures
-            .map((k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v)))),
+        'signatures': signatures.map((k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v)))),
         'token': token,
       };
 
@@ -1197,12 +1147,8 @@ class GetKeysChangesResponse {
   });
 
   GetKeysChangesResponse.fromJson(Map<String, Object?> json)
-      : changed = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['changed']),
-        left = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['left']);
+      : changed = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['changed']),
+        left = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['left']);
   Map<String, Object?> toJson() {
     final changed = this.changed;
     final left = this.left;
@@ -1232,20 +1178,15 @@ class ClaimKeysResponse {
 
   ClaimKeysResponse.fromJson(Map<String, Object?> json)
       : failures = ((v) => v != null
-            ? (v as Map<String, Object?>)
-                .map((k, v) => MapEntry(k, v as Map<String, Object?>))
+            ? (v as Map<String, Object?>).map((k, v) => MapEntry(k, v as Map<String, Object?>))
             : null)(json['failures']),
         oneTimeKeys = (json['one_time_keys'] as Map<String, Object?>).map(
-            (k, v) => MapEntry(
-                k,
-                (v as Map<String, Object?>)
-                    .map((k, v) => MapEntry(k, v as Map<String, Object?>))));
+            (k, v) => MapEntry(k, (v as Map<String, Object?>).map((k, v) => MapEntry(k, v as Map<String, Object?>))));
   Map<String, Object?> toJson() {
     final failures = this.failures;
     return {
       if (failures != null) 'failures': failures.map((k, v) => MapEntry(k, v)),
-      'one_time_keys': oneTimeKeys
-          .map((k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v)))),
+      'one_time_keys': oneTimeKeys.map((k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v)))),
     };
   }
 
@@ -1284,24 +1225,23 @@ class QueryKeysResponse {
       : deviceKeys = ((v) => v != null
             ? (v as Map<String, Object?>).map((k, v) => MapEntry(
                 k,
-                (v as Map<String, Object?>).map((k, v) => MapEntry(
-                    k, MatrixDeviceKeys.fromJson(v as Map<String, Object?>)))))
+                (v as Map<String, Object?>)
+                    .map((k, v) => MapEntry(k, MatrixDeviceKeys.fromJson(v as Map<String, Object?>)))))
             : null)(json['device_keys']),
         failures = ((v) => v != null
-            ? (v as Map<String, Object?>)
-                .map((k, v) => MapEntry(k, v as Map<String, Object?>))
+            ? (v as Map<String, Object?>).map((k, v) => MapEntry(k, v as Map<String, Object?>))
             : null)(json['failures']),
         masterKeys = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) => MapEntry(
-                k, MatrixCrossSigningKey.fromJson(v as Map<String, Object?>)))
+            ? (v as Map<String, Object?>)
+                .map((k, v) => MapEntry(k, MatrixCrossSigningKey.fromJson(v as Map<String, Object?>)))
             : null)(json['master_keys']),
         selfSigningKeys = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) => MapEntry(
-                k, MatrixCrossSigningKey.fromJson(v as Map<String, Object?>)))
+            ? (v as Map<String, Object?>)
+                .map((k, v) => MapEntry(k, MatrixCrossSigningKey.fromJson(v as Map<String, Object?>)))
             : null)(json['self_signing_keys']),
         userSigningKeys = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) => MapEntry(
-                k, MatrixCrossSigningKey.fromJson(v as Map<String, Object?>)))
+            ? (v as Map<String, Object?>)
+                .map((k, v) => MapEntry(k, MatrixCrossSigningKey.fromJson(v as Map<String, Object?>)))
             : null)(json['user_signing_keys']);
   Map<String, Object?> toJson() {
     final deviceKeys = this.deviceKeys;
@@ -1311,17 +1251,11 @@ class QueryKeysResponse {
     final userSigningKeys = this.userSigningKeys;
     return {
       if (deviceKeys != null)
-        'device_keys': deviceKeys.map(
-            (k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v.toJson())))),
+        'device_keys': deviceKeys.map((k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v.toJson())))),
       if (failures != null) 'failures': failures.map((k, v) => MapEntry(k, v)),
-      if (masterKeys != null)
-        'master_keys': masterKeys.map((k, v) => MapEntry(k, v.toJson())),
-      if (selfSigningKeys != null)
-        'self_signing_keys':
-            selfSigningKeys.map((k, v) => MapEntry(k, v.toJson())),
-      if (userSigningKeys != null)
-        'user_signing_keys':
-            userSigningKeys.map((k, v) => MapEntry(k, v.toJson())),
+      if (masterKeys != null) 'master_keys': masterKeys.map((k, v) => MapEntry(k, v.toJson())),
+      if (selfSigningKeys != null) 'self_signing_keys': selfSigningKeys.map((k, v) => MapEntry(k, v.toJson())),
+      if (userSigningKeys != null) 'user_signing_keys': userSigningKeys.map((k, v) => MapEntry(k, v.toJson())),
     };
   }
 
@@ -1370,8 +1304,7 @@ class LoginFlow {
     this.type,
   });
 
-  LoginFlow.fromJson(Map<String, Object?> json)
-      : type = ((v) => v != null ? v as String : null)(json['type']);
+  LoginFlow.fromJson(Map<String, Object?> json) : type = ((v) => v != null ? v as String : null)(json['type']);
   Map<String, Object?> toJson() {
     final type = this.type;
     return {
@@ -1391,7 +1324,9 @@ enum LoginType {
   @EnhancedEnumValue(name: 'm.login.password')
   mLoginPassword,
   @EnhancedEnumValue(name: 'm.login.token')
-  mLoginToken
+  mLoginToken,
+  @EnhancedEnumValue(name: 'org.matrix.login.jwt')
+  mLoginJWT
 }
 
 ///
@@ -1410,16 +1345,12 @@ class LoginResponse {
   LoginResponse.fromJson(Map<String, Object?> json)
       : accessToken = json['access_token'] as String,
         deviceId = json['device_id'] as String,
-        expiresInMs =
-            ((v) => v != null ? v as int : null)(json['expires_in_ms']),
-        homeServer =
-            ((v) => v != null ? v as String : null)(json['home_server']),
-        refreshToken =
-            ((v) => v != null ? v as String : null)(json['refresh_token']),
+        expiresInMs = ((v) => v != null ? v as int : null)(json['expires_in_ms']),
+        homeServer = ((v) => v != null ? v as String : null)(json['home_server']),
+        refreshToken = ((v) => v != null ? v as String : null)(json['refresh_token']),
         userId = json['user_id'] as String,
-        wellKnown = ((v) => v != null
-            ? DiscoveryInformation.fromJson(v as Map<String, Object?>)
-            : null)(json['well_known']);
+        wellKnown =
+            ((v) => v != null ? DiscoveryInformation.fromJson(v as Map<String, Object?>) : null)(json['well_known']);
   Map<String, Object?> toJson() {
     final expiresInMs = this.expiresInMs;
     final homeServer = this.homeServer;
@@ -1490,8 +1421,7 @@ class Notification {
   Notification.fromJson(Map<String, Object?> json)
       : actions = (json['actions'] as List).map((v) => v as Object?).toList(),
         event = MatrixEvent.fromJson(json['event'] as Map<String, Object?>),
-        profileTag =
-            ((v) => v != null ? v as String : null)(json['profile_tag']),
+        profileTag = ((v) => v != null ? v as String : null)(json['profile_tag']),
         read = json['read'] as bool,
         roomId = json['room_id'] as String,
         ts = json['ts'] as int;
@@ -1539,9 +1469,8 @@ class GetNotificationsResponse {
 
   GetNotificationsResponse.fromJson(Map<String, Object?> json)
       : nextToken = ((v) => v != null ? v as String : null)(json['next_token']),
-        notifications = (json['notifications'] as List)
-            .map((v) => Notification.fromJson(v as Map<String, Object?>))
-            .toList();
+        notifications =
+            (json['notifications'] as List).map((v) => Notification.fromJson(v as Map<String, Object?>)).toList();
   Map<String, Object?> toJson() {
     final nextToken = this.nextToken;
     return {
@@ -1582,10 +1511,8 @@ class GetPresenceResponse {
   });
 
   GetPresenceResponse.fromJson(Map<String, Object?> json)
-      : currentlyActive =
-            ((v) => v != null ? v as bool : null)(json['currently_active']),
-        lastActiveAgo =
-            ((v) => v != null ? v as int : null)(json['last_active_ago']),
+      : currentlyActive = ((v) => v != null ? v as bool : null)(json['currently_active']),
+        lastActiveAgo = ((v) => v != null ? v as int : null)(json['last_active_ago']),
         presence = PresenceType.values.fromString(json['presence'] as String)!,
         statusMsg = ((v) => v != null ? v as String : null)(json['status_msg']);
   Map<String, Object?> toJson() {
@@ -1623,10 +1550,8 @@ class ProfileInformation {
   });
 
   ProfileInformation.fromJson(Map<String, Object?> json)
-      : avatarUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
-        displayname =
-            ((v) => v != null ? v as String : null)(json['displayname']);
+      : avatarUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
+        displayname = ((v) => v != null ? v as String : null)(json['displayname']);
   Map<String, Object?> toJson() {
     final avatarUrl = this.avatarUrl;
     final displayname = this.displayname;
@@ -1654,13 +1579,10 @@ class GetPublicRoomsResponse {
   });
 
   GetPublicRoomsResponse.fromJson(Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => PublicRoomsChunk.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : chunk = (json['chunk'] as List).map((v) => PublicRoomsChunk.fromJson(v as Map<String, Object?>)).toList(),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         prevBatch = ((v) => v != null ? v as String : null)(json['prev_batch']),
-        totalRoomCountEstimate = ((v) =>
-            v != null ? v as int : null)(json['total_room_count_estimate']);
+        totalRoomCountEstimate = ((v) => v != null ? v as int : null)(json['total_room_count_estimate']);
   Map<String, Object?> toJson() {
     final nextBatch = this.nextBatch;
     final prevBatch = this.prevBatch;
@@ -1669,8 +1591,7 @@ class GetPublicRoomsResponse {
       'chunk': chunk.map((v) => v.toJson()).toList(),
       if (nextBatch != null) 'next_batch': nextBatch,
       if (prevBatch != null) 'prev_batch': prevBatch,
-      if (totalRoomCountEstimate != null)
-        'total_room_count_estimate': totalRoomCountEstimate,
+      if (totalRoomCountEstimate != null) 'total_room_count_estimate': totalRoomCountEstimate,
     };
   }
 
@@ -1701,11 +1622,8 @@ class PublicRoomQueryFilter {
   });
 
   PublicRoomQueryFilter.fromJson(Map<String, Object?> json)
-      : genericSearchTerm = ((v) =>
-            v != null ? v as String : null)(json['generic_search_term']),
-        roomTypes = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['room_types']);
+      : genericSearchTerm = ((v) => v != null ? v as String : null)(json['generic_search_term']),
+        roomTypes = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['room_types']);
   Map<String, Object?> toJson() {
     final genericSearchTerm = this.genericSearchTerm;
     final roomTypes = this.roomTypes;
@@ -1737,13 +1655,10 @@ class QueryPublicRoomsResponse {
   });
 
   QueryPublicRoomsResponse.fromJson(Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => PublicRoomsChunk.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : chunk = (json['chunk'] as List).map((v) => PublicRoomsChunk.fromJson(v as Map<String, Object?>)).toList(),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         prevBatch = ((v) => v != null ? v as String : null)(json['prev_batch']),
-        totalRoomCountEstimate = ((v) =>
-            v != null ? v as int : null)(json['total_room_count_estimate']);
+        totalRoomCountEstimate = ((v) => v != null ? v as int : null)(json['total_room_count_estimate']);
   Map<String, Object?> toJson() {
     final nextBatch = this.nextBatch;
     final prevBatch = this.prevBatch;
@@ -1752,8 +1667,7 @@ class QueryPublicRoomsResponse {
       'chunk': chunk.map((v) => v.toJson()).toList(),
       if (nextBatch != null) 'next_batch': nextBatch,
       if (prevBatch != null) 'prev_batch': prevBatch,
-      if (totalRoomCountEstimate != null)
-        'total_room_count_estimate': totalRoomCountEstimate,
+      if (totalRoomCountEstimate != null) 'total_room_count_estimate': totalRoomCountEstimate,
     };
   }
 
@@ -1859,8 +1773,7 @@ class Pusher implements PusherId {
         deviceDisplayName = json['device_display_name'] as String,
         kind = json['kind'] as String,
         lang = json['lang'] as String,
-        profileTag =
-            ((v) => v != null ? v as String : null)(json['profile_tag']);
+        profileTag = ((v) => v != null ? v as String : null)(json['profile_tag']);
   Map<String, Object?> toJson() {
     final profileTag = this.profileTag;
     return {
@@ -1975,9 +1888,7 @@ class PushRule {
   PushRule.fromJson(Map<String, Object?> json)
       : actions = (json['actions'] as List).map((v) => v as Object?).toList(),
         conditions = ((v) => v != null
-            ? (v as List)
-                .map((v) => PushCondition.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => PushCondition.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['conditions']),
         default$ = json['default'] as bool,
         enabled = json['enabled'] as bool,
@@ -1988,8 +1899,7 @@ class PushRule {
     final pattern = this.pattern;
     return {
       'actions': actions.map((v) => v).toList(),
-      if (conditions != null)
-        'conditions': conditions.map((v) => v.toJson()).toList(),
+      if (conditions != null) 'conditions': conditions.map((v) => v.toJson()).toList(),
       'default': default$,
       'enabled': enabled,
       if (pattern != null) 'pattern': pattern,
@@ -2032,29 +1942,19 @@ class PushRuleSet {
 
   PushRuleSet.fromJson(Map<String, Object?> json)
       : content = ((v) => v != null
-            ? (v as List)
-                .map((v) => PushRule.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => PushRule.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['content']),
         override = ((v) => v != null
-            ? (v as List)
-                .map((v) => PushRule.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => PushRule.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['override']),
         room = ((v) => v != null
-            ? (v as List)
-                .map((v) => PushRule.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => PushRule.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['room']),
         sender = ((v) => v != null
-            ? (v as List)
-                .map((v) => PushRule.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => PushRule.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['sender']),
         underride = ((v) => v != null
-            ? (v as List)
-                .map((v) => PushRule.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => PushRule.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['underride']);
   Map<String, Object?> toJson() {
     final content = this.content;
@@ -2064,12 +1964,10 @@ class PushRuleSet {
     final underride = this.underride;
     return {
       if (content != null) 'content': content.map((v) => v.toJson()).toList(),
-      if (override != null)
-        'override': override.map((v) => v.toJson()).toList(),
+      if (override != null) 'override': override.map((v) => v.toJson()).toList(),
       if (room != null) 'room': room.map((v) => v.toJson()).toList(),
       if (sender != null) 'sender': sender.map((v) => v.toJson()).toList(),
-      if (underride != null)
-        'underride': underride.map((v) => v.toJson()).toList(),
+      if (underride != null) 'underride': underride.map((v) => v.toJson()).toList(),
     };
   }
 
@@ -2116,10 +2014,8 @@ class RefreshResponse {
 
   RefreshResponse.fromJson(Map<String, Object?> json)
       : accessToken = json['access_token'] as String,
-        expiresInMs =
-            ((v) => v != null ? v as int : null)(json['expires_in_ms']),
-        refreshToken =
-            ((v) => v != null ? v as String : null)(json['refresh_token']);
+        expiresInMs = ((v) => v != null ? v as int : null)(json['expires_in_ms']),
+        refreshToken = ((v) => v != null ? v as String : null)(json['refresh_token']);
   Map<String, Object?> toJson() {
     final expiresInMs = this.expiresInMs;
     final refreshToken = this.refreshToken;
@@ -2167,15 +2063,11 @@ class RegisterResponse {
   });
 
   RegisterResponse.fromJson(Map<String, Object?> json)
-      : accessToken =
-            ((v) => v != null ? v as String : null)(json['access_token']),
+      : accessToken = ((v) => v != null ? v as String : null)(json['access_token']),
         deviceId = ((v) => v != null ? v as String : null)(json['device_id']),
-        expiresInMs =
-            ((v) => v != null ? v as int : null)(json['expires_in_ms']),
-        homeServer =
-            ((v) => v != null ? v as String : null)(json['home_server']),
-        refreshToken =
-            ((v) => v != null ? v as String : null)(json['refresh_token']),
+        expiresInMs = ((v) => v != null ? v as int : null)(json['expires_in_ms']),
+        homeServer = ((v) => v != null ? v as String : null)(json['home_server']),
+        refreshToken = ((v) => v != null ? v as String : null)(json['refresh_token']),
         userId = json['user_id'] as String;
   Map<String, Object?> toJson() {
     final accessToken = this.accessToken;
@@ -2305,8 +2197,8 @@ class RoomKeyBackup {
   });
 
   RoomKeyBackup.fromJson(Map<String, Object?> json)
-      : sessions = (json['sessions'] as Map<String, Object?>).map((k, v) =>
-            MapEntry(k, KeyBackupData.fromJson(v as Map<String, Object?>)));
+      : sessions = (json['sessions'] as Map<String, Object?>)
+            .map((k, v) => MapEntry(k, KeyBackupData.fromJson(v as Map<String, Object?>)));
   Map<String, Object?> toJson() => {
         'sessions': sessions.map((k, v) => MapEntry(k, v.toJson())),
       };
@@ -2323,8 +2215,8 @@ class RoomKeys {
   });
 
   RoomKeys.fromJson(Map<String, Object?> json)
-      : rooms = (json['rooms'] as Map<String, Object?>).map((k, v) =>
-            MapEntry(k, RoomKeyBackup.fromJson(v as Map<String, Object?>)));
+      : rooms = (json['rooms'] as Map<String, Object?>)
+            .map((k, v) => MapEntry(k, RoomKeyBackup.fromJson(v as Map<String, Object?>)));
   Map<String, Object?> toJson() => {
         'rooms': rooms.map((k, v) => MapEntry(k, v.toJson())),
       };
@@ -2353,8 +2245,7 @@ class GetRoomKeysVersionCurrentResponse {
   });
 
   GetRoomKeysVersionCurrentResponse.fromJson(Map<String, Object?> json)
-      : algorithm =
-            BackupAlgorithm.values.fromString(json['algorithm'] as String)!,
+      : algorithm = BackupAlgorithm.values.fromString(json['algorithm'] as String)!,
         authData = json['auth_data'] as Map<String, Object?>,
         count = json['count'] as int,
         etag = json['etag'] as String,
@@ -2400,8 +2291,7 @@ class GetRoomKeysVersionResponse {
   });
 
   GetRoomKeysVersionResponse.fromJson(Map<String, Object?> json)
-      : algorithm =
-            BackupAlgorithm.values.fromString(json['algorithm'] as String)!,
+      : algorithm = BackupAlgorithm.values.fromString(json['algorithm'] as String)!,
         authData = json['auth_data'] as Map<String, Object?>,
         count = json['count'] as int,
         etag = json['etag'] as String,
@@ -2449,24 +2339,16 @@ class EventContext {
 
   EventContext.fromJson(Map<String, Object?> json)
       : end = ((v) => v != null ? v as String : null)(json['end']),
-        event = ((v) => v != null
-            ? MatrixEvent.fromJson(v as Map<String, Object?>)
-            : null)(json['event']),
+        event = ((v) => v != null ? MatrixEvent.fromJson(v as Map<String, Object?>) : null)(json['event']),
         eventsAfter = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['events_after']),
         eventsBefore = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['events_before']),
         start = ((v) => v != null ? v as String : null)(json['start']),
         state = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['state']);
   Map<String, Object?> toJson() {
     final end = this.end;
@@ -2478,10 +2360,8 @@ class EventContext {
     return {
       if (end != null) 'end': end,
       if (event != null) 'event': event.toJson(),
-      if (eventsAfter != null)
-        'events_after': eventsAfter.map((v) => v.toJson()).toList(),
-      if (eventsBefore != null)
-        'events_before': eventsBefore.map((v) => v.toJson()).toList(),
+      if (eventsAfter != null) 'events_after': eventsAfter.map((v) => v.toJson()).toList(),
+      if (eventsBefore != null) 'events_before': eventsBefore.map((v) => v.toJson()).toList(),
       if (start != null) 'start': start,
       if (state != null) 'state': state.map((v) => v.toJson()).toList(),
     };
@@ -2517,10 +2397,8 @@ class RoomMember {
   });
 
   RoomMember.fromJson(Map<String, Object?> json)
-      : avatarUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
-        displayName =
-            ((v) => v != null ? v as String : null)(json['display_name']);
+      : avatarUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
+        displayName = ((v) => v != null ? v as String : null)(json['display_name']);
   Map<String, Object?> toJson() {
     final avatarUrl = this.avatarUrl;
     final displayName = this.displayName;
@@ -2564,15 +2442,11 @@ class GetRoomEventsResponse {
   });
 
   GetRoomEventsResponse.fromJson(Map<String, Object?> json)
-      : chunk = (json['chunk'] as List)
-            .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-            .toList(),
+      : chunk = (json['chunk'] as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList(),
         end = ((v) => v != null ? v as String : null)(json['end']),
         start = json['start'] as String,
         state = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['state']);
   Map<String, Object?> toJson() {
     final end = this.end;
@@ -2642,10 +2516,8 @@ class IncludeEventContext {
 
   IncludeEventContext.fromJson(Map<String, Object?> json)
       : afterLimit = ((v) => v != null ? v as int : null)(json['after_limit']),
-        beforeLimit =
-            ((v) => v != null ? v as int : null)(json['before_limit']),
-        includeProfile =
-            ((v) => v != null ? v as bool : null)(json['include_profile']);
+        beforeLimit = ((v) => v != null ? v as int : null)(json['before_limit']),
+        includeProfile = ((v) => v != null ? v as bool : null)(json['include_profile']);
   Map<String, Object?> toJson() {
     final afterLimit = this.afterLimit;
     final beforeLimit = this.beforeLimit;
@@ -2685,18 +2557,10 @@ class EventFilter {
 
   EventFilter.fromJson(Map<String, Object?> json)
       : limit = ((v) => v != null ? v as int : null)(json['limit']),
-        notSenders = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_senders']),
-        notTypes = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_types']),
-        senders = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['senders']),
-        types = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['types']);
+        notSenders = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_senders']),
+        notTypes = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_types']),
+        senders = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['senders']),
+        types = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['types']);
   Map<String, Object?> toJson() {
     final limit = this.limit;
     final notSenders = this.notSenders;
@@ -2741,20 +2605,12 @@ class RoomEventFilter {
   });
 
   RoomEventFilter.fromJson(Map<String, Object?> json)
-      : containsUrl =
-            ((v) => v != null ? v as bool : null)(json['contains_url']),
-        includeRedundantMembers = ((v) =>
-            v != null ? v as bool : null)(json['include_redundant_members']),
-        lazyLoadMembers =
-            ((v) => v != null ? v as bool : null)(json['lazy_load_members']),
-        notRooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_rooms']),
-        rooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['rooms']),
-        unreadThreadNotifications = ((v) =>
-            v != null ? v as bool : null)(json['unread_thread_notifications']);
+      : containsUrl = ((v) => v != null ? v as bool : null)(json['contains_url']),
+        includeRedundantMembers = ((v) => v != null ? v as bool : null)(json['include_redundant_members']),
+        lazyLoadMembers = ((v) => v != null ? v as bool : null)(json['lazy_load_members']),
+        notRooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_rooms']),
+        rooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['rooms']),
+        unreadThreadNotifications = ((v) => v != null ? v as bool : null)(json['unread_thread_notifications']);
   Map<String, Object?> toJson() {
     final containsUrl = this.containsUrl;
     final includeRedundantMembers = this.includeRedundantMembers;
@@ -2764,13 +2620,11 @@ class RoomEventFilter {
     final unreadThreadNotifications = this.unreadThreadNotifications;
     return {
       if (containsUrl != null) 'contains_url': containsUrl,
-      if (includeRedundantMembers != null)
-        'include_redundant_members': includeRedundantMembers,
+      if (includeRedundantMembers != null) 'include_redundant_members': includeRedundantMembers,
       if (lazyLoadMembers != null) 'lazy_load_members': lazyLoadMembers,
       if (notRooms != null) 'not_rooms': notRooms.map((v) => v).toList(),
       if (rooms != null) 'rooms': rooms.map((v) => v).toList(),
-      if (unreadThreadNotifications != null)
-        'unread_thread_notifications': unreadThreadNotifications,
+      if (unreadThreadNotifications != null) 'unread_thread_notifications': unreadThreadNotifications,
     };
   }
 
@@ -2819,32 +2673,16 @@ class SearchFilter implements EventFilter, RoomEventFilter {
 
   SearchFilter.fromJson(Map<String, Object?> json)
       : limit = ((v) => v != null ? v as int : null)(json['limit']),
-        notSenders = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_senders']),
-        notTypes = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_types']),
-        senders = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['senders']),
-        types = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['types']),
-        containsUrl =
-            ((v) => v != null ? v as bool : null)(json['contains_url']),
-        includeRedundantMembers = ((v) =>
-            v != null ? v as bool : null)(json['include_redundant_members']),
-        lazyLoadMembers =
-            ((v) => v != null ? v as bool : null)(json['lazy_load_members']),
-        notRooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_rooms']),
-        rooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['rooms']),
-        unreadThreadNotifications = ((v) =>
-            v != null ? v as bool : null)(json['unread_thread_notifications']);
+        notSenders = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_senders']),
+        notTypes = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_types']),
+        senders = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['senders']),
+        types = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['types']),
+        containsUrl = ((v) => v != null ? v as bool : null)(json['contains_url']),
+        includeRedundantMembers = ((v) => v != null ? v as bool : null)(json['include_redundant_members']),
+        lazyLoadMembers = ((v) => v != null ? v as bool : null)(json['lazy_load_members']),
+        notRooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_rooms']),
+        rooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['rooms']),
+        unreadThreadNotifications = ((v) => v != null ? v as bool : null)(json['unread_thread_notifications']);
   Map<String, Object?> toJson() {
     final limit = this.limit;
     final notSenders = this.notSenders;
@@ -2864,13 +2702,11 @@ class SearchFilter implements EventFilter, RoomEventFilter {
       if (senders != null) 'senders': senders.map((v) => v).toList(),
       if (types != null) 'types': types.map((v) => v).toList(),
       if (containsUrl != null) 'contains_url': containsUrl,
-      if (includeRedundantMembers != null)
-        'include_redundant_members': includeRedundantMembers,
+      if (includeRedundantMembers != null) 'include_redundant_members': includeRedundantMembers,
       if (lazyLoadMembers != null) 'lazy_load_members': lazyLoadMembers,
       if (notRooms != null) 'not_rooms': notRooms.map((v) => v).toList(),
       if (rooms != null) 'rooms': rooms.map((v) => v).toList(),
-      if (unreadThreadNotifications != null)
-        'unread_thread_notifications': unreadThreadNotifications,
+      if (unreadThreadNotifications != null) 'unread_thread_notifications': unreadThreadNotifications,
     };
   }
 
@@ -2933,9 +2769,7 @@ class Group {
   });
 
   Group.fromJson(Map<String, Object?> json)
-      : key = ((v) => v != null
-            ? GroupKey.values.fromString(v as String)!
-            : null)(json['key']);
+      : key = ((v) => v != null ? GroupKey.values.fromString(v as String)! : null)(json['key']);
   Map<String, Object?> toJson() {
     final key = this.key;
     return {
@@ -2956,9 +2790,7 @@ class Groupings {
 
   Groupings.fromJson(Map<String, Object?> json)
       : groupBy = ((v) => v != null
-            ? (v as List)
-                .map((v) => Group.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => Group.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['group_by']);
   Map<String, Object?> toJson() {
     final groupBy = this.groupBy;
@@ -3007,25 +2839,14 @@ class RoomEventsCriteria {
   });
 
   RoomEventsCriteria.fromJson(Map<String, Object?> json)
-      : eventContext = ((v) => v != null
-            ? IncludeEventContext.fromJson(v as Map<String, Object?>)
-            : null)(json['event_context']),
-        filter = ((v) => v != null
-            ? SearchFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['filter']),
-        groupings = ((v) => v != null
-            ? Groupings.fromJson(v as Map<String, Object?>)
-            : null)(json['groupings']),
-        includeState =
-            ((v) => v != null ? v as bool : null)(json['include_state']),
-        keys = ((v) => v != null
-            ? (v as List)
-                .map((v) => KeyKind.values.fromString(v as String)!)
-                .toList()
-            : null)(json['keys']),
-        orderBy = ((v) => v != null
-            ? SearchOrder.values.fromString(v as String)!
-            : null)(json['order_by']),
+      : eventContext =
+            ((v) => v != null ? IncludeEventContext.fromJson(v as Map<String, Object?>) : null)(json['event_context']),
+        filter = ((v) => v != null ? SearchFilter.fromJson(v as Map<String, Object?>) : null)(json['filter']),
+        groupings = ((v) => v != null ? Groupings.fromJson(v as Map<String, Object?>) : null)(json['groupings']),
+        includeState = ((v) => v != null ? v as bool : null)(json['include_state']),
+        keys = ((v) =>
+            v != null ? (v as List).map((v) => KeyKind.values.fromString(v as String)!).toList() : null)(json['keys']),
+        orderBy = ((v) => v != null ? SearchOrder.values.fromString(v as String)! : null)(json['order_by']),
         searchTerm = json['search_term'] as String;
   Map<String, Object?> toJson() {
     final eventContext = this.eventContext;
@@ -3079,9 +2900,8 @@ class Categories {
   });
 
   Categories.fromJson(Map<String, Object?> json)
-      : roomEvents = ((v) => v != null
-            ? RoomEventsCriteria.fromJson(v as Map<String, Object?>)
-            : null)(json['room_events']);
+      : roomEvents =
+            ((v) => v != null ? RoomEventsCriteria.fromJson(v as Map<String, Object?>) : null)(json['room_events']);
   Map<String, Object?> toJson() {
     final roomEvents = this.roomEvents;
     return {
@@ -3105,9 +2925,7 @@ class GroupValue {
   GroupValue.fromJson(Map<String, Object?> json)
       : nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         order = ((v) => v != null ? v as int : null)(json['order']),
-        results = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['results']);
+        results = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['results']);
   Map<String, Object?> toJson() {
     final nextBatch = this.nextBatch;
     final order = this.order;
@@ -3143,10 +2961,8 @@ class UserProfile {
   });
 
   UserProfile.fromJson(Map<String, Object?> json)
-      : avatarUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
-        displayname =
-            ((v) => v != null ? v as String : null)(json['displayname']);
+      : avatarUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
+        displayname = ((v) => v != null ? v as String : null)(json['displayname']);
   Map<String, Object?> toJson() {
     final avatarUrl = this.avatarUrl;
     final displayname = this.displayname;
@@ -3177,18 +2993,13 @@ class SearchResultsEventContext {
   SearchResultsEventContext.fromJson(Map<String, Object?> json)
       : end = ((v) => v != null ? v as String : null)(json['end']),
         eventsAfter = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['events_after']),
         eventsBefore = ((v) => v != null
-            ? (v as List)
-                .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['events_before']),
         profileInfo = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) =>
-                MapEntry(k, UserProfile.fromJson(v as Map<String, Object?>)))
+            ? (v as Map<String, Object?>).map((k, v) => MapEntry(k, UserProfile.fromJson(v as Map<String, Object?>)))
             : null)(json['profile_info']),
         start = ((v) => v != null ? v as String : null)(json['start']);
   Map<String, Object?> toJson() {
@@ -3199,12 +3010,9 @@ class SearchResultsEventContext {
     final start = this.start;
     return {
       if (end != null) 'end': end,
-      if (eventsAfter != null)
-        'events_after': eventsAfter.map((v) => v.toJson()).toList(),
-      if (eventsBefore != null)
-        'events_before': eventsBefore.map((v) => v.toJson()).toList(),
-      if (profileInfo != null)
-        'profile_info': profileInfo.map((k, v) => MapEntry(k, v.toJson())),
+      if (eventsAfter != null) 'events_after': eventsAfter.map((v) => v.toJson()).toList(),
+      if (eventsBefore != null) 'events_before': eventsBefore.map((v) => v.toJson()).toList(),
+      if (profileInfo != null) 'profile_info': profileInfo.map((k, v) => MapEntry(k, v.toJson())),
       if (start != null) 'start': start,
     };
   }
@@ -3239,13 +3047,10 @@ class Result {
   });
 
   Result.fromJson(Map<String, Object?> json)
-      : context = ((v) => v != null
-            ? SearchResultsEventContext.fromJson(v as Map<String, Object?>)
-            : null)(json['context']),
+      : context =
+            ((v) => v != null ? SearchResultsEventContext.fromJson(v as Map<String, Object?>) : null)(json['context']),
         rank = ((v) => v != null ? (v as num).toDouble() : null)(json['rank']),
-        result = ((v) => v != null
-            ? MatrixEvent.fromJson(v as Map<String, Object?>)
-            : null)(json['result']);
+        result = ((v) => v != null ? MatrixEvent.fromJson(v as Map<String, Object?>) : null)(json['result']);
   Map<String, Object?> toJson() {
     final context = this.context;
     final rank = this.rank;
@@ -3282,26 +3087,17 @@ class ResultRoomEvents {
   ResultRoomEvents.fromJson(Map<String, Object?> json)
       : count = ((v) => v != null ? v as int : null)(json['count']),
         groups = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) => MapEntry(
-                k,
-                (v as Map<String, Object?>).map((k, v) => MapEntry(
-                    k, GroupValue.fromJson(v as Map<String, Object?>)))))
+            ? (v as Map<String, Object?>).map((k, v) => MapEntry(k,
+                (v as Map<String, Object?>).map((k, v) => MapEntry(k, GroupValue.fromJson(v as Map<String, Object?>)))))
             : null)(json['groups']),
-        highlights = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['highlights']),
+        highlights = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['highlights']),
         nextBatch = ((v) => v != null ? v as String : null)(json['next_batch']),
         results = ((v) => v != null
-            ? (v as List)
-                .map((v) => Result.fromJson(v as Map<String, Object?>))
-                .toList()
+            ? (v as List).map((v) => Result.fromJson(v as Map<String, Object?>)).toList()
             : null)(json['results']),
         state = ((v) => v != null
-            ? (v as Map<String, Object?>).map((k, v) => MapEntry(
-                k,
-                (v as List)
-                    .map((v) => MatrixEvent.fromJson(v as Map<String, Object?>))
-                    .toList()))
+            ? (v as Map<String, Object?>).map(
+                (k, v) => MapEntry(k, (v as List).map((v) => MatrixEvent.fromJson(v as Map<String, Object?>)).toList()))
             : null)(json['state']);
   Map<String, Object?> toJson() {
     final count = this.count;
@@ -3312,15 +3108,11 @@ class ResultRoomEvents {
     final state = this.state;
     return {
       if (count != null) 'count': count,
-      if (groups != null)
-        'groups': groups.map(
-            (k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v.toJson())))),
+      if (groups != null) 'groups': groups.map((k, v) => MapEntry(k, v.map((k, v) => MapEntry(k, v.toJson())))),
       if (highlights != null) 'highlights': highlights.map((v) => v).toList(),
       if (nextBatch != null) 'next_batch': nextBatch,
       if (results != null) 'results': results.map((v) => v.toJson()).toList(),
-      if (state != null)
-        'state':
-            state.map((k, v) => MapEntry(k, v.map((v) => v.toJson()).toList())),
+      if (state != null) 'state': state.map((k, v) => MapEntry(k, v.map((v) => v.toJson()).toList())),
     };
   }
 
@@ -3363,9 +3155,8 @@ class ResultCategories {
   });
 
   ResultCategories.fromJson(Map<String, Object?> json)
-      : roomEvents = ((v) => v != null
-            ? ResultRoomEvents.fromJson(v as Map<String, Object?>)
-            : null)(json['room_events']);
+      : roomEvents =
+            ((v) => v != null ? ResultRoomEvents.fromJson(v as Map<String, Object?>) : null)(json['room_events']);
   Map<String, Object?> toJson() {
     final roomEvents = this.roomEvents;
     return {
@@ -3385,8 +3176,7 @@ class SearchResults {
   });
 
   SearchResults.fromJson(Map<String, Object?> json)
-      : searchCategories = ResultCategories.fromJson(
-            json['search_categories'] as Map<String, Object?>);
+      : searchCategories = ResultCategories.fromJson(json['search_categories'] as Map<String, Object?>);
   Map<String, Object?> toJson() => {
         'search_categories': searchCategories.toJson(),
       };
@@ -3500,16 +3290,13 @@ class Protocol {
   });
 
   Protocol.fromJson(Map<String, Object?> json)
-      : fieldTypes = (json['field_types'] as Map<String, Object?>).map((k, v) =>
-            MapEntry(k, FieldType.fromJson(v as Map<String, Object?>))),
+      : fieldTypes = (json['field_types'] as Map<String, Object?>)
+            .map((k, v) => MapEntry(k, FieldType.fromJson(v as Map<String, Object?>))),
         icon = json['icon'] as String,
-        instances = (json['instances'] as List)
-            .map((v) => ProtocolInstance.fromJson(v as Map<String, Object?>))
-            .toList(),
-        locationFields =
-            (json['location_fields'] as List).map((v) => v as String).toList(),
-        userFields =
-            (json['user_fields'] as List).map((v) => v as String).toList();
+        instances =
+            (json['instances'] as List).map((v) => ProtocolInstance.fromJson(v as Map<String, Object?>)).toList(),
+        locationFields = (json['location_fields'] as List).map((v) => v as String).toList(),
+        userFields = (json['user_fields'] as List).map((v) => v as String).toList();
   Map<String, Object?> toJson() => {
         'field_types': fieldTypes.map((k, v) => MapEntry(k, v.toJson())),
         'icon': icon,
@@ -3604,32 +3391,16 @@ class StateFilter implements EventFilter, RoomEventFilter {
 
   StateFilter.fromJson(Map<String, Object?> json)
       : limit = ((v) => v != null ? v as int : null)(json['limit']),
-        notSenders = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_senders']),
-        notTypes = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_types']),
-        senders = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['senders']),
-        types = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['types']),
-        containsUrl =
-            ((v) => v != null ? v as bool : null)(json['contains_url']),
-        includeRedundantMembers = ((v) =>
-            v != null ? v as bool : null)(json['include_redundant_members']),
-        lazyLoadMembers =
-            ((v) => v != null ? v as bool : null)(json['lazy_load_members']),
-        notRooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_rooms']),
-        rooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['rooms']),
-        unreadThreadNotifications = ((v) =>
-            v != null ? v as bool : null)(json['unread_thread_notifications']);
+        notSenders = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_senders']),
+        notTypes = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_types']),
+        senders = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['senders']),
+        types = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['types']),
+        containsUrl = ((v) => v != null ? v as bool : null)(json['contains_url']),
+        includeRedundantMembers = ((v) => v != null ? v as bool : null)(json['include_redundant_members']),
+        lazyLoadMembers = ((v) => v != null ? v as bool : null)(json['lazy_load_members']),
+        notRooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_rooms']),
+        rooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['rooms']),
+        unreadThreadNotifications = ((v) => v != null ? v as bool : null)(json['unread_thread_notifications']);
   Map<String, Object?> toJson() {
     final limit = this.limit;
     final notSenders = this.notSenders;
@@ -3649,13 +3420,11 @@ class StateFilter implements EventFilter, RoomEventFilter {
       if (senders != null) 'senders': senders.map((v) => v).toList(),
       if (types != null) 'types': types.map((v) => v).toList(),
       if (containsUrl != null) 'contains_url': containsUrl,
-      if (includeRedundantMembers != null)
-        'include_redundant_members': includeRedundantMembers,
+      if (includeRedundantMembers != null) 'include_redundant_members': includeRedundantMembers,
       if (lazyLoadMembers != null) 'lazy_load_members': lazyLoadMembers,
       if (notRooms != null) 'not_rooms': notRooms.map((v) => v).toList(),
       if (rooms != null) 'rooms': rooms.map((v) => v).toList(),
-      if (unreadThreadNotifications != null)
-        'unread_thread_notifications': unreadThreadNotifications,
+      if (unreadThreadNotifications != null) 'unread_thread_notifications': unreadThreadNotifications,
     };
   }
 
@@ -3714,26 +3483,13 @@ class RoomFilter {
   });
 
   RoomFilter.fromJson(Map<String, Object?> json)
-      : accountData = ((v) => v != null
-            ? StateFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['account_data']),
-        ephemeral = ((v) => v != null
-            ? StateFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['ephemeral']),
-        includeLeave =
-            ((v) => v != null ? v as bool : null)(json['include_leave']),
-        notRooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['not_rooms']),
-        rooms = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['rooms']),
-        state = ((v) => v != null
-            ? StateFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['state']),
-        timeline = ((v) => v != null
-            ? StateFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['timeline']);
+      : accountData = ((v) => v != null ? StateFilter.fromJson(v as Map<String, Object?>) : null)(json['account_data']),
+        ephemeral = ((v) => v != null ? StateFilter.fromJson(v as Map<String, Object?>) : null)(json['ephemeral']),
+        includeLeave = ((v) => v != null ? v as bool : null)(json['include_leave']),
+        notRooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['not_rooms']),
+        rooms = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['rooms']),
+        state = ((v) => v != null ? StateFilter.fromJson(v as Map<String, Object?>) : null)(json['state']),
+        timeline = ((v) => v != null ? StateFilter.fromJson(v as Map<String, Object?>) : null)(json['timeline']);
   Map<String, Object?> toJson() {
     final accountData = this.accountData;
     final ephemeral = this.ephemeral;
@@ -3787,21 +3543,11 @@ class Filter {
   });
 
   Filter.fromJson(Map<String, Object?> json)
-      : accountData = ((v) => v != null
-            ? EventFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['account_data']),
-        eventFields = ((v) => v != null
-            ? (v as List).map((v) => v as String).toList()
-            : null)(json['event_fields']),
-        eventFormat = ((v) => v != null
-            ? EventFormat.values.fromString(v as String)!
-            : null)(json['event_format']),
-        presence = ((v) => v != null
-            ? EventFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['presence']),
-        room = ((v) => v != null
-            ? RoomFilter.fromJson(v as Map<String, Object?>)
-            : null)(json['room']);
+      : accountData = ((v) => v != null ? EventFilter.fromJson(v as Map<String, Object?>) : null)(json['account_data']),
+        eventFields = ((v) => v != null ? (v as List).map((v) => v as String).toList() : null)(json['event_fields']),
+        eventFormat = ((v) => v != null ? EventFormat.values.fromString(v as String)! : null)(json['event_format']),
+        presence = ((v) => v != null ? EventFilter.fromJson(v as Map<String, Object?>) : null)(json['presence']),
+        room = ((v) => v != null ? RoomFilter.fromJson(v as Map<String, Object?>) : null)(json['room']);
   Map<String, Object?> toJson() {
     final accountData = this.accountData;
     final eventFields = this.eventFields;
@@ -3810,8 +3556,7 @@ class Filter {
     final room = this.room;
     return {
       if (accountData != null) 'account_data': accountData.toJson(),
-      if (eventFields != null)
-        'event_fields': eventFields.map((v) => v).toList(),
+      if (eventFields != null) 'event_fields': eventFields.map((v) => v).toList(),
       if (eventFormat != null) 'event_format': eventFormat.name,
       if (presence != null) 'presence': presence.toJson(),
       if (room != null) 'room': room.toJson(),
@@ -3882,11 +3627,9 @@ class Tag {
   });
 
   Tag.fromJson(Map<String, Object?> json)
-      : order =
-            ((v) => v != null ? (v as num).toDouble() : null)(json['order']),
-        additionalProperties = Map.fromEntries(json.entries
-            .where((e) => !['order'].contains(e.key))
-            .map((e) => MapEntry(e.key, e.value as Object?)));
+      : order = ((v) => v != null ? (v as num).toDouble() : null)(json['order']),
+        additionalProperties = Map.fromEntries(
+            json.entries.where((e) => !['order'].contains(e.key)).map((e) => MapEntry(e.key, e.value as Object?)));
   Map<String, Object?> toJson() {
     final order = this.order;
     return {
@@ -3912,10 +3655,8 @@ class Profile {
   });
 
   Profile.fromJson(Map<String, Object?> json)
-      : avatarUrl = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
-        displayName =
-            ((v) => v != null ? v as String : null)(json['display_name']),
+      : avatarUrl = ((v) => v != null ? Uri.parse(v as String) : null)(json['avatar_url']),
+        displayName = ((v) => v != null ? v as String : null)(json['display_name']),
         userId = json['user_id'] as String;
   Map<String, Object?> toJson() {
     final avatarUrl = this.avatarUrl;
@@ -3947,9 +3688,7 @@ class SearchUserDirectoryResponse {
 
   SearchUserDirectoryResponse.fromJson(Map<String, Object?> json)
       : limited = json['limited'] as bool,
-        results = (json['results'] as List)
-            .map((v) => Profile.fromJson(v as Map<String, Object?>))
-            .toList();
+        results = (json['results'] as List).map((v) => Profile.fromJson(v as Map<String, Object?>)).toList();
   Map<String, Object?> toJson() => {
         'limited': limited,
         'results': results.map((v) => v.toJson()).toList(),
@@ -4013,8 +3752,7 @@ class GetVersionsResponse {
   Map<String, Object?> toJson() {
     final unstableFeatures = this.unstableFeatures;
     return {
-      if (unstableFeatures != null)
-        'unstable_features': unstableFeatures.map((k, v) => MapEntry(k, v)),
+      if (unstableFeatures != null) 'unstable_features': unstableFeatures.map((k, v) => MapEntry(k, v)),
       'versions': versions.map((v) => v).toList(),
     };
   }
@@ -4036,8 +3774,7 @@ class ServerConfig {
   });
 
   ServerConfig.fromJson(Map<String, Object?> json)
-      : mUploadSize =
-            ((v) => v != null ? v as int : null)(json['m.upload.size']);
+      : mUploadSize = ((v) => v != null ? v as int : null)(json['m.upload.size']);
   Map<String, Object?> toJson() {
     final mUploadSize = this.mUploadSize;
     return {
@@ -4060,10 +3797,8 @@ class GetUrlPreviewResponse {
   });
 
   GetUrlPreviewResponse.fromJson(Map<String, Object?> json)
-      : matrixImageSize =
-            ((v) => v != null ? v as int : null)(json['matrix:image:size']),
-        ogImage = ((v) =>
-            v != null ? Uri.parse(v as String) : null)(json['og:image']);
+      : matrixImageSize = ((v) => v != null ? v as int : null)(json['matrix:image:size']),
+        ogImage = ((v) => v != null ? Uri.parse(v as String) : null)(json['og:image']);
   Map<String, Object?> toJson() {
     final matrixImageSize = this.matrixImageSize;
     final ogImage = this.ogImage;
